@@ -1,0 +1,28 @@
+<head>
+    <script>
+        var ws1, ws2, ws3;
+        function setup_ws (name) {
+            var ws = new WebSocket('ws://localhost:8000/' + name);
+            ws.onopen = function (e) { console.log(name + " open"); }
+            ws.onerror = function (e) { console.log(name + " error"); }
+            ws.onmessage = function (e) { console.log(name + " message: " + e.data); }
+            ws.onclose = function (e) { console.log(name + " close") }
+            return ws;
+        }
+        window.onload = function () {
+            ws1 = setup_ws("ws1");
+            ws2 = setup_ws("ws2");
+            ws3 = setup_ws("ws3");
+        }
+        function close_ws (ws) {
+            ws.close()
+        }
+    </script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <button onclick="close_ws(ws1)">close /ws1</button> <br/>
+        <button onclick="close_ws(ws2)">close /ws2</button> <br/>
+        <button onclick="close_ws(ws3)">close /ws3</button> <br/>
+    </div>
+</body>
